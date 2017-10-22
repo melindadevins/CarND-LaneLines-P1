@@ -1,4 +1,4 @@
-w# **Finding Lane Lines on the Road** 
+# **Finding Lane Lines on the Road** 
 
 **Finding Lane Lines on the Road**
 
@@ -22,7 +22,7 @@ My pipeline consisted of 5 steps:
 1. I converted the images to grayscale and applied Gussian smoothing. 
 2. I used Canny edge detection to detect the edges of all objects. 
 3. I defined a four sided polygon to mask the image, only leave the area in front of the car, where the lanes are.
-4. I used Hough transformation to draw the lane lines, the output is an image with only the lane lines. 
+4. I used Hough transformation to find the lane lines, and use OpenCV to draw the lines. The output is an image with only the lane lines. 
 5. I used OpenCV to overlay the original image with the lane image from step 4
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function by extrapolation:
@@ -35,9 +35,7 @@ instead of 0, is to eliminate horizontal lines. Add the two points of the line t
 5. Use slope and the intercept of the lane to calculate the x coordinates corresponding to the top and bottom y coodinate.
 6. Use *cv2.line* to draw line for left and right lane, providing the top and bottom x and y coordinates. 
 
-The following is one of the images that draw solid line for the lanes, after apply the improved version of *draw_line* function:
-
-![alt text][https://github.com/melindadevins/CarND-LaneLines-P1/blob/master/test_images_improved_output/solidWhiteCurve.jpg]
+The following is the images and videos that draw solid line for the lanes, after apply the improved version of *draw_line* function:
 
 [Images with lane drawn in solid lines](https://github.com/melindadevins/CarND-LaneLines-P1/tree/master/test_images_improved_output)
 
@@ -54,13 +52,13 @@ I doubt it is feasible to pre-determine the area where the lanes are when the ru
 Another shortcoming could be the way how I extrapolate the lines. I assumes the lanes were straight lines, 
 and used one degree polyfit to fit the slope and intercept of the line. It will not work well when the lanes are curved. 
 
-Third problem was the change of light on the road was mistakenly draw as lane. 
+Third problem was that the changing of light on the road was mistakenly draw as lane in some frames of the optional challenge video. 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be use object detection to decide the lanes from Canny edge detection's output image, 
+A possible improvement would be using deep learning object detection to seperate the lanes from other objects in Canny edge detection's output image, 
 instead of rely on human's eyeball to decide the area where the lanes are and mask off other areas.
 
-Another potential improvement could be when draw the lines for the lanes, extrapolate the curve lines, instead of assume straight line. 
+Another potential improvement could be when draw the lines for the lanes, extrapolate the curve lines, instead of assuming straight line. 
 
 To eliminate the light reflection on the road, perhaps one could find a better gray scale. 
